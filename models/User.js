@@ -6,7 +6,6 @@ const validateEmail = function(email) {
     return re.test(email)
 };
 
-// Schema to create Student model
 const userSchema = new Schema(
   {
     username: {

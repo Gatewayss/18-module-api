@@ -1,4 +1,4 @@
-const { User, Thought}= require('../models/index');
+const { User, Thought }= require('../models/index');
 const connection = require('../config/connection');
 
 const users = [
