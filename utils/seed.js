@@ -1,5 +1,4 @@
-// const mongoose = require('mongoose');
-const User = require('../models/User');
+const { User, Thought}= require('../models/index');
 const connection = require('../config/connection');
 
 const users = [
@@ -8,7 +7,7 @@ const users = [
         email: 'emilysmith@example.com',
     },
     {
-        username: 'JohnDoe_87,',
+        username: 'JohnDoe_87',
         email: 'johndoe_87@example.com',
     },
     {
@@ -25,17 +24,61 @@ const users = [
     }
 ];
 
+const thoughts = [
+    {
+        thoughtText: "This is my first thought!",
+        username: "JohnDoe_87",
+        reactions: [
+            {
+                reactionBody: "👍",
+                username: "JessicaLee_99"
+            },
+            {
+                reactionBody: "❤️",
+                username: "DavidBrown34"
+            }
+        ]
+    },
+    {
+        thoughtText: "I love this!",
+        username: "EmilySmith2023",
+        reactions: [
+          {
+            reactionBody: "👍",
+            username: "DavidBrown34"
+          },
+          {
+            reactionBody: "👎",
+            username: "EmilySmith2023"
+          },
+          {
+            reactionBody: "❤️",
+            username: "JessicaLee_99"
+          }
+        ]
+      }
+];
+
 connection.once('open', async () => {
     console.log('connected');
 
     try {
         await User.deleteMany({});
-        console.log('All existing users deleted.');
+
+        await Thought.deleteMany({})
+
+        console.log('All data deleted!');
 
         for (let user of users) {
             let newUser = new User(user);
             await newUser.save();
             console.log(`Added user: ${user.username}`);
+        }
+
+        for (let thought of thoughts){
+            let newThoughts = new Thought(thought);
+            await newThoughts.save();
+            console.log(`Added ${thought.thoughtText}`);
         }
 
         console.info('Seeding complete! 🌱');
