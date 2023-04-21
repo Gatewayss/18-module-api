@@ -48,5 +48,36 @@ module.exports = {
                 res.json({ message: "thought created!" });
             })
             .catch((err) => res.status(500).json(err));
+    },
+    getSingleThought(req, res) {
+        Thought.findOne({ _id: req.params.thoughtId })
+            .then(async (thought) =>
+                !thought
+                    ? res.status(404).json({ message: 'No user with that ID' })
+                    : res.json({
+                        thought,
+                    })
+            )
+            .catch((err) => {
+                console.log(err);
+                return res.status(500).json(err);
+            });
+    },
+    updateThought(req, res) {
+        Thought.findOneAndUpdate({ _id: req.params.thoughtId }, req.body, { new: true }, (err, thought) => {
+            if (err) {
+                return res.status(400).send(err);
+            } else {
+                return res.send(thought);
+            }
+        });
+    },
+    deleteThought(req, res) {
+        Thought.findOneAndRemove({ _id: req.params.thoughtId })
+            .then((thought) =>
+                !thought
+                    ? res.status(404).json({ message: 'No such thought exists' })
+                    : res.status(200).json({ message: 'Thought was deleted!' })
+            )
     }
 }

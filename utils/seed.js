@@ -24,43 +24,6 @@ const users = [
     }
 ];
 
-// const thoughts = [
-//     {
-//         thoughtText: "This is my first thought!",
-//         username: "JohnDoe_87",
-//         userId: "6442b084a3f0454e760eeb5a",
-//         reactions: [
-//             {
-//                 reactionBody: "👍",
-//                 username: "JessicaLee_99"
-//             },
-//             {
-//                 reactionBody: "❤️",
-//                 username: "DavidBrown34"
-//             }
-//         ]
-//     },
-//     {
-//         thoughtText: "I love this!",
-//         username: "EmilySmith2023",
-//         userId: "6441bb635167e7c3ebb53015",
-//         reactions: [
-//           {
-//             reactionBody: "👍",
-//             username: "DavidBrown34"
-//           },
-//           {
-//             reactionBody: "👎",
-//             username: "EmilySmith2023"
-//           },
-//           {
-//             reactionBody: "❤️",
-//             username: "JessicaLee_99"
-//           }
-//         ]
-//       }
-// ];
-
 connection.once('open', async () => {
     console.log('connected');
 
@@ -69,7 +32,7 @@ connection.once('open', async () => {
 
         await Thought.deleteMany({})
 
-        console.log('All data deleted!');
+        console.log('All data was deleted!');
 
         for (let user of users) {
             let newUser = new User(user);
