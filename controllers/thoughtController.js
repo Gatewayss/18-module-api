@@ -1,5 +1,6 @@
 const { User, Thought } = require('../models/index');
 
+// Counts all the thoughts
 const thoughtCount = async () =>
     Thought.aggregate()
         .count('thoughtCount')
@@ -21,6 +22,7 @@ module.exports = {
                 return res.status(500).json(err);
             });
     },
+    // Create thought
     createThought(req, res) {
         Thought.create(req.body)
             .then((thought) => {
@@ -49,6 +51,7 @@ module.exports = {
             })
             .catch((err) => res.status(500).json(err));
     },
+    // Get single thought
     getSingleThought(req, res) {
         Thought.findOne({ _id: req.params.thoughtId })
             .then(async (thought) =>
@@ -63,6 +66,7 @@ module.exports = {
                 return res.status(500).json(err);
             });
     },
+    // Update thought
     updateThought(req, res) {
         Thought.findOneAndUpdate({ _id: req.params.thoughtId }, req.body, { new: true }, (err, thought) => {
             if (err) {
@@ -72,6 +76,7 @@ module.exports = {
             }
         });
     },
+    // Delete thought
     deleteThought(req, res) {
         Thought.findOneAndRemove({ _id: req.params.thoughtId })
             .then((thought) =>
@@ -80,6 +85,7 @@ module.exports = {
                     : res.status(200).json({ message: 'Thought was deleted!' })
             )
     },
+    // Create a reaction
     createReaction(req, res) {
         Thought.findOneAndUpdate({ _id: req.params.thoughtId }, { $push: { reactions: req.body } }, { new: true }, (err, reaction) => {
             if (err) {
@@ -89,6 +95,7 @@ module.exports = {
             }
         });
     },
+    // Delete a reaction 
     deleteReaction(req, res) {
         Thought.findOneAndUpdate({ _id: req.params.thoughtId }, { $pull: { reactions: { reactionId: req.body.reactionId } } }, { new: true }, (err, reaction) => {
             if (err) {
