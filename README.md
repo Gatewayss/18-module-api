@@ -13,9 +13,9 @@ Then to start the server run the
 
 Optionally if you wish to reseed the database by adding five users with no thoughts or reactions run 
 
-`npm seed`
+`npm run seed`
 ## Links 
-- [Walkthrough Video]()
+- [Walkthrough Video](https://drive.google.com/file/d/1dnoP2Ntv_8kaSYaWJ5wYVz_Md8yDoHlU/view)
 - [MIT](https://opensource.org/license/mit/)
 
 ## Questions 
