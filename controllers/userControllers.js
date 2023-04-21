@@ -1,5 +1,5 @@
-const { ObjectId } = require('mongoose').Types;
-const { findByIdAndDelete } = require('../models/Thought');
+// const { ObjectId } = require('mongoose').Types;
+// const { findByIdAndDelete } = require('../models/Thought');
 const { User, Thought } = require('../models/index');
 
 // Aggregate function to get the number of users overall

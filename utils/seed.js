@@ -28,6 +28,7 @@ const thoughts = [
     {
         thoughtText: "This is my first thought!",
         username: "JohnDoe_87",
+        userId: "6442b084a3f0454e760eeb5a",
         reactions: [
             {
                 reactionBody: "👍",
@@ -42,6 +43,7 @@ const thoughts = [
     {
         thoughtText: "I love this!",
         username: "EmilySmith2023",
+        userId: "6441bb635167e7c3ebb53015",
         reactions: [
           {
             reactionBody: "👍",
@@ -75,7 +77,7 @@ connection.once('open', async () => {
             console.log(`Added user: ${user.username}`);
         }
 
-        for (let thought of thoughts){
+        for (let thought of thoughts) {
             let newThoughts = new Thought(thought);
             await newThoughts.save();
             console.log(`Added ${thought.thoughtText}`);
