@@ -1,4 +1,5 @@
 const { ObjectId } = require('mongoose').Types;
+const { findByIdAndDelete } = require('../models/Thought');
 const { User, Thought } = require('../models/index');
 
 // Aggregate function to get the number of users overall
@@ -82,5 +83,38 @@ module.exports = {
                 return res.send(user);
             }
         });
+    },
+
+    // Add a friend by id 
+    addFriend: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.userId);
+            const friend = await User.findById(req.params.friendsId);
+    
+            user.friends.push(friend);
+            const updatedUser = await user.save();
+    
+            return res.json(updatedUser);
+        } catch (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
+    },
+
+    // Delete a friend by id
+    deleteFriend: async (req, res) => {
+        try {
+            const user = await User.findById(req.params.userId);
+    
+            user.friends = user.friends.filter(friendId => friendId.toString() !== req.params.friendsId);
+    
+            const updatedFriends = await user.save();
+    
+            return res.json(updatedFriends);
+        }
+        catch (err) {
+            console.log(err);
+            return res.status(500).json(err);
+        }
     }
-}
+};
