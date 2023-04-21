@@ -79,5 +79,23 @@ module.exports = {
                     ? res.status(404).json({ message: 'No such thought exists' })
                     : res.status(200).json({ message: 'Thought was deleted!' })
             )
+    },
+    createReaction(req, res) {
+        Thought.findOneAndUpdate({ _id: req.params.thoughtId }, { $push: { reactions: req.body } }, { new: true }, (err, reaction) => {
+            if (err) {
+                return res.status(400).send(err);
+            } else {
+                return res.send(reaction);
+            }
+        });
+    },
+    deleteReaction(req, res) {
+        Thought.findOneAndUpdate({ _id: req.params.thoughtId }, { $pull: { reactions: { reactionId: req.body.reactionId } } }, { new: true }, (err, reaction) => {
+            if (err) {
+                return res.status(400).send(err);
+            } else {
+                return res.send(reaction);
+            }
+        });
     }
-}
+};
