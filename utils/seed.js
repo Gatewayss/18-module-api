@@ -77,12 +77,6 @@ connection.once('open', async () => {
             console.log(`Added user: ${user.username}`);
         }
 
-        // for (let thought of thoughts) {
-        //     let newThoughts = new Thought(thought);
-        //     await newThoughts.save();
-        //     console.log(`Added ${thought.thoughtText}`);
-        // }
-
         console.info('Seeding complete! 🌱');
         process.exit(0);
 

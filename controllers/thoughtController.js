@@ -6,8 +6,8 @@ const thoughtCount = async () =>
         .then((numberOfThoughts) => numberOfThoughts);
 
 module.exports = {
-      // Get all thoughts
-      getThoughts(req, res) {
+    // Get all thoughts
+    getThoughts(req, res) {
         Thought.find()
             .then(async (thought) => {
                 const thoughtObj = {
@@ -20,17 +20,33 @@ module.exports = {
                 console.log(err);
                 return res.status(500).json(err);
             });
-
-        
     },
     createThought(req, res) {
         Thought.create(req.body)
             .then((thought) => {
-                return User.findOneAndUpdate({ _id: req.body.userId}, {$push: {thoughts: thought._id}}, { new: true})
+                console.log(thought.reactions);
+
+                const thoughtId = thought._id;
+                const userId = req.body.userId;
+                const reactions = thought.reactions;
+
+                const updateThoughts = User.findOneAndUpdate(
+                    { _id: userId },
+                    { $push: { thoughts: thoughtId } },
+                    { new: true }
+                );
+
+                const updateReactions = User.findOneAndUpdate(
+                    { _id: userId },
+                    { $push: { reactions: { $each: reactions } } },
+                    { new: true }
+                );
+
+                return Promise.all([updateThoughts, updateReactions]);
             })
             .then(() => {
-                res.json({message: "thought created!"});
-              })
+                res.json({ message: "thought created!" });
+            })
             .catch((err) => res.status(500).json(err));
-    },
+    }
 }
