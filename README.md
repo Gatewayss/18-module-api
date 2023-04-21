@@ -14,6 +14,9 @@ Then to start the server run the
 Optionally if you wish to reseed the database by adding five users with no thoughts or reactions run 
 
 `npm run seed`
+
+## Credit 
+The source code I used adn modified for start this project was provided by the University of Minnesota Full Stack Coding Bootcamp.  
 ## Links 
 - [Walkthrough Video](https://drive.google.com/file/d/1dnoP2Ntv_8kaSYaWJ5wYVz_Md8yDoHlU/view)
 - [MIT](https://opensource.org/license/mit/)
