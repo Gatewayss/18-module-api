@@ -14,5 +14,3 @@ db.once('open', () => {
     console.log(`API server running on port http://127.0.0.1:${PORT}`);
   });
 });
-
-// app.use((req, res) => res.send('connected!'));
